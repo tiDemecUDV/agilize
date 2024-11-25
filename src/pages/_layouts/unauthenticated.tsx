@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
+import { Header } from '@/components/header'
+
 export function UnauthenticatedLayout() {
   return (
     <div>
@@ -21,7 +23,13 @@ export function UnauthenticatedLayout() {
       </div>
 
       <div className="w-full h-[calc(100vh-3.5rem)] sm:h-screen flex items-center justify-center px-4">
-        <Outlet />
+        <div className="w-full max-w-[720px] max-h-[80%] flex flex-col">
+          <main className="border-[0.5px] border-gray-100 shadow-lg rounded-xl overflow-y-auto">
+            <Header />
+
+            <Outlet />
+          </main>
+        </div>
       </div>
     </div>
   )

@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { Amplify } from 'aws-amplify'
 import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'sonner'
@@ -25,6 +26,7 @@ export function App() {
       </AuthProvider>
 
       <Toaster closeButton richColors />
+      <Analytics />
     </BrowserRouter>
   )
 }

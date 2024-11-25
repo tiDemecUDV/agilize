@@ -12,8 +12,6 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '@/components/button'
-import { Footer } from '@/components/footer'
-import { Header } from '@/components/header'
 import { Input } from '@/components/input'
 import { PasswordInfo } from '@/components/password-info'
 
@@ -130,92 +128,84 @@ export function ResetPassword() {
   }, [email, navigate])
 
   return (
-    <div className="w-full max-w-[720px] max-h-[80%] flex flex-col">
-      <main className="border-[0.5px] border-gray-100 shadow-lg rounded-xl overflow-y-auto">
-        <Header />
+    <form
+      onSubmit={handleSubmit(handleResetPassword)}
+      className="flex flex-col gap-4 p-6"
+    >
+      <PasswordInfo />
 
-        <form
-          onSubmit={handleSubmit(handleResetPassword)}
-          className="flex flex-col gap-4 p-6"
+      <fieldset className="flex flex-col gap-3 py-2">
+        <Input
+          id="email"
+          type="email"
+          label="E-mail do Reuni"
+          placeholder="E-mail do Reuni"
+          errorMessage={errors.email?.message}
+          required
+          disabled
+          {...register('email')}
+        />
+
+        <Input
+          id="code"
+          type="text"
+          label="Código de confirmação"
+          placeholder="Código de confirmação"
+          errorMessage={errors.code?.message}
+          autoFocus
+          required
+          {...register('code')}
+        />
+
+        <Input
+          id="password"
+          type="password"
+          label="Senha"
+          placeholder="••••••••"
+          errorMessage={errors.password?.message}
+          required
+          {...register('password')}
+        />
+
+        <Input
+          id="confirmPassword"
+          type="password"
+          label="Confirmação de senha"
+          placeholder="••••••••"
+          errorMessage={errors.confirmPassword?.message}
+          required
+          {...register('confirmPassword')}
+        />
+
+        <button
+          type="button"
+          onClick={handleResendCode}
+          disabled={isLoadingResend}
+          className="flex items-center gap-1 self-end font-medium text-primary hover:text-sky-700 disabled:text-primary hover:underline disabled:no-underline disabled:cursor-not-allowed transition duration-300"
         >
-          <PasswordInfo />
+          {isLoadingResend && (
+            <div className="size-4 border-2 border-transparent border-t-primary border-r-primary rounded-full animate-spin" />
+          )}
+          Reenviar código
+        </button>
+      </fieldset>
 
-          <fieldset className="flex flex-col gap-3 py-2">
-            <Input
-              id="email"
-              type="email"
-              label="E-mail do Reuni"
-              placeholder="E-mail do Reuni"
-              errorMessage={errors.email?.message}
-              required
-              disabled
-              {...register('email')}
-            />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-2 sm:ml-34">
+        <Button
+          type="submit"
+          icon={<KeyIcon className="size-4" />}
+          isLoading={isSubmitting}
+        >
+          Confirmar
+        </Button>
 
-            <Input
-              id="code"
-              type="text"
-              label="Código de confirmação"
-              placeholder="Código de confirmação"
-              errorMessage={errors.code?.message}
-              autoFocus
-              required
-              {...register('code')}
-            />
-
-            <Input
-              id="password"
-              type="password"
-              label="Senha"
-              placeholder="••••••••"
-              errorMessage={errors.password?.message}
-              required
-              {...register('password')}
-            />
-
-            <Input
-              id="confirmPassword"
-              type="password"
-              label="Confirmação de senha"
-              placeholder="••••••••"
-              errorMessage={errors.confirmPassword?.message}
-              required
-              {...register('confirmPassword')}
-            />
-
-            <button
-              type="button"
-              onClick={handleResendCode}
-              disabled={isLoadingResend}
-              className="flex items-center gap-1 self-end font-medium text-primary hover:text-sky-700 disabled:text-primary hover:underline disabled:no-underline disabled:cursor-not-allowed transition duration-300"
-            >
-              {isLoadingResend && (
-                <div className="size-4 border-2 border-transparent border-t-primary border-r-primary rounded-full animate-spin" />
-              )}
-              Reenviar código
-            </button>
-          </fieldset>
-
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-2 sm:ml-34">
-            <Button
-              type="submit"
-              icon={<KeyIcon className="size-4" />}
-              isLoading={isSubmitting}
-            >
-              Confirmar
-            </Button>
-
-            <Link
-              to="/"
-              className="font-medium text-primary hover:text-sky-700 hover:underline transition duration-300"
-            >
-              Voltar para o login
-            </Link>
-          </div>
-        </form>
-      </main>
-
-      <Footer />
-    </div>
+        <Link
+          to="/"
+          className="font-medium text-primary hover:text-sky-700 hover:underline transition duration-300"
+        >
+          Voltar para o login
+        </Link>
+      </div>
+    </form>
   )
 }
