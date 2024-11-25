@@ -72,6 +72,8 @@ export function SignIn() {
           default:
             toast.error('Erro inesperado, tente novamente mais tarde.')
         }
+
+        return
       }
 
       toast.error('Erro inesperado, tente novamente mais tarde.')

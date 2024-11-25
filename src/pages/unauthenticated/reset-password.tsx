@@ -82,7 +82,12 @@ export function ResetPassword() {
           default:
             toast.error('Erro inesperado, tente novamente mais tarde.')
             navigate('/')
+
+            return
         }
+
+        toast.error('Erro inesperado, tente novamente mais tarde.')
+        navigate('/')
       })
   }
 

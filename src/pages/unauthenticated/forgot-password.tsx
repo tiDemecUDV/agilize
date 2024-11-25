@@ -61,7 +61,12 @@ export function ForgotPassword() {
           default:
             toast.error('Erro inesperado, tente novamente mais tarde.')
             navigate('/')
+
+            return
         }
+
+        toast.error('Erro inesperado, tente novamente mais tarde.')
+        navigate('/')
       }
 
       toast.error('Erro inesperado, tente novamente mais tarde.')
